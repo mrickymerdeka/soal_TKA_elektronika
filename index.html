@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)'], ['$', '$']],
+    displayMath: [['\\[', '\\]'], ['$$', '$$']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+</script>
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulasi TKA Teknik Elektronika SMK/MAK</title>
+
+<style>
+:root {
+  --biru: #123b5d;
+  --biru-muda: #eaf3f8;
+  --hijau-muda: #eaf7ed;
+  --abu: #667085;
+  --garis: #d9e2ec;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #f2f5f7;
+  color: #202124;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+}
+
+main {
+  max-width: 980px;
+  margin: auto;
+  padding: 28px;
+  background: white;
+}
+
+h1, h2, h3 {
+  color: var(--biru);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.subjudul {
+  text-align: center;
+  color: var(--abu);
+}
+
+.identitas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 24px 0;
+}
+
+.identitas div {
+  border-bottom: 1px solid #555;
+  min-height: 30px;
+}
+
+.petunjuk {
+  padding: 18px 22px;
+  background: var(--biru-muda);
+  border-left: 5px solid var(--biru);
+  margin: 24px 0;
+}
+
+.soal {
+  padding: 18px 22px;
+  margin: 20px 0;
+  border: 1px solid var(--garis);
+  border-radius: 8px;
+  break-inside: avoid;
+}
+
+.nomor {
+  color: var(--biru);
+  font-weight: bold;
+}
+
+.opsi {
+  margin: 8px 0 0 18px;
+}
+
+.opsi div {
+  margin: 3px 0;
+}
+
+.diagram {
+  text-align: center;
+  margin: 18px auto;
+  overflow-x: auto;
+}
+
+.diagram svg {
+  width: min(100%, 650px);
+  height: auto;
+  border: 1px solid #ddd;
+  background: #fff;
+}
+
+figcaption {
+  font-size: 0.9rem;
+  color: var(--abu);
+}
+
+.jawaban {
+  padding: 15px 20px;
+  margin: 12px 0;
+  background: var(--hijau-muda);
+  border-left: 5px solid #238636;
+  break-inside: avoid;
+}
+
+.benar {
+  font-weight: bold;
+  color: #176b35;
+}
+
+.footer {
+  margin-top: 35px;
+  padding-top: 15px;
+  border-top: 1px solid var(--garis);
+  text-align: center;
+  color: var(--abu);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 650px) {
+  main {
+    padding: 15px;
+  }
+
+  .identitas {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media print {
+  body {
+    background: white;
+  }
+
+  main {
+    max-width: none;
+  }
+
+  .soal,
+  .jawaban {
+    break-inside: avoid;
+  }
+}
+
+/* Tampilan layar */
+#kunci-jawaban {
+  margin-top: 50px;
+  padding-top: 25px;
+  border-top: 3px solid #123b5d;
+}
+
+/* Khusus saat dicetak atau disimpan sebagai PDF */
+@media print {
+  #kunci-jawaban {
+    break-before: page;
+    page-break-before: always;
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+  }
+
+  .soal {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .jawaban {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
+
+</style>
+</head>
+
+<body>
+<main>
+
+<header>
+  <h1>Simulasi TKA Teknik Elektronika</h1>
+  <p class="subjudul">Jenjang SMK/MAK — 40 Soal dan Pembahasan</p>
+</header>
+
+<section class="identitas">
+  <div>Nama: ............................................................</div>
+  <div>Kelas: ............................................................</div>
+  <div>Nomor Peserta: ................................................</div>
+  <div>Tanggal: ........................................................</div>
+</section>
+
+<section class="petunjuk">
+  <h2>Petunjuk Pengerjaan</h2>
+  <ol>
+    <li>Pilih satu jawaban yang paling tepat untuk soal pilihan ganda.</li>
+    <li>Pada soal bertanda <strong>PGK</strong>, jawaban benar dapat lebih dari satu.</li>
+    <li>Bacalah gambar rangkaian dan informasi pada setiap soal dengan teliti.</li>
+    <li>Kunci jawaban dan pembahasan tersedia di bagian akhir.</li>
+  </ol>
+</section>
+
+<h2>A. Soal Simulasi</h2>
+
+<section class="soal">
+  <div class="nomor">1. Waste Control</div>
+  <p>Dalam industri elektronika, tindakan yang paling tepat untuk mengendalikan limbah adalah …</p>
+  <div class="opsi">
+    <div>A. Membuang semua limbah ke tempat sampah umum</div>
+    <div>B. Mengurangi limbah, memilah berdasarkan jenisnya, dan menyerahkannya kepada pengelola yang sesuai</div>
+    <div>C. Membakar seluruh limbah agar volumenya berkurang</div>
+    <div>D. Mencampur limbah elektronik dengan limbah organik</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">2. K3LH</div>
+  <p>Sebelum memperbaiki rangkaian elektronika yang menggunakan sumber listrik, tindakan pertama yang paling tepat adalah …</p>
+  <div class="opsi">
+    <div>A. Menyentuh kabel untuk mengetahui ada tidaknya tegangan</div>
+    <div>B. Mematikan sumber listrik dan memastikan rangkaian tidak bertegangan</div>
+    <div>C. Mengganti sekering dengan kawat</div>
+    <div>D. Menyiram rangkaian dengan air</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">3. Rambu Keselamatan</div>
+  <p>Perhatikan simbol berikut.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 240 160" role="img"
+         aria-labelledby="rambu-title rambu-desc"
+         xmlns="http://www.w3.org/2000/svg">
+      <title id="rambu-title">Rambu larangan menyentuh</title>
+      <desc id="rambu-desc">Lingkaran merah dengan gambar tangan dan garis larangan.</desc>
+      <circle cx="120" cy="80" r="58" fill="white" stroke="#d71920" stroke-width="10"/>
+      <path d="M91 100 L91 66 Q91 58 98 58 Q105 58 105 66 L105 85
+               M105 82 L105 50 Q105 43 112 43 Q119 43 119 50 L119 82
+               M119 82 L119 57 Q119 50 126 50 Q133 50 133 57 L133 85
+               M133 85 L133 67 Q133 60 140 60 Q147 60 147 67 L147 100
+               Q147 119 122 121 Q98 121 91 100"
+            fill="none" stroke="#222" stroke-width="6"/>
+      <line x1="76" y1="38" x2="165" y2="128"
+            stroke="#d71920" stroke-width="10"/>
+    </svg>
+    <figcaption>Gambar 1. Rambu keselamatan</figcaption>
+  </figure>
+
+  <p>Makna rambu tersebut adalah …</p>
+  <div class="opsi">
+    <div>A. Wajib menggunakan sarung tangan</div>
+    <div>B. Dilarang menyentuh</div>
+    <div>C. Tempat mencuci tangan</div>
+    <div>D. Tangan harus dibersihkan</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">4. Limbah B3</div>
+  <p>Baterai bekas, sisa cairan etsa PCB, dan komponen yang mengandung bahan berbahaya sebaiknya …</p>
+  <div class="opsi">
+    <div>A. Dibuang ke saluran air</div>
+    <div>B. Dicampur dengan sampah rumah tangga</div>
+    <div>C. Dipilah, diberi label, disimpan sementara dengan aman, lalu diserahkan kepada pengelola berwenang</div>
+    <div>D. Dibakar di ruang terbuka</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">5. Budaya Kerja 5R</div>
+  <p>Pernyataan yang benar tentang penerapan 5R adalah …</p>
+  <div class="opsi">
+    <div>A. Ringkas berarti menyimpan semua barang di meja kerja</div>
+    <div>B. Rapi berarti menempatkan alat sesuai lokasi yang telah ditentukan</div>
+    <div>C. Resik berarti membiarkan sisa solder sampai akhir minggu</div>
+    <div>D. Rajin berarti bekerja tanpa mengikuti prosedur</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">6. Perkakas Tangan</div>
+  <p>Perkakas yang paling tepat digunakan untuk memotong kaki komponen setelah penyolderan adalah …</p>
+  <div class="opsi">
+    <div>A. Tang potong</div>
+    <div>B. Tang kombinasi</div>
+    <div>C. Obeng minus</div>
+    <div>D. Kunci pas</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">7. Penyolderan</div>
+  <p>Sebelum menyolder komponen pada PCB, langkah yang benar adalah …</p>
+  <div class="opsi">
+    <div>A. Memanaskan komponen selama mungkin</div>
+    <div>B. Membersihkan ujung solder dan memastikan titik solder bersih</div>
+    <div>C. Menyentuhkan timah solder ke ujung solder saja</div>
+    <div>D. Menyolder tanpa memperhatikan polaritas komponen</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">8. Pembuatan PCB</div>
+  <p>Urutan umum pembuatan PCB satu lapis yang benar adalah …</p>
+  <div class="opsi">
+    <div>A. Mengebor–melarutkan–mencetak pola–memotong</div>
+    <div>B. Membuat desain–memindahkan pola–melarutkan tembaga–membersihkan dan mengebor</div>
+    <div>C. Menyolder–mencetak pola–memotong–melarutkan</div>
+    <div>D. Menguji rangkaian–mengebor–mendesain–melarutkan</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">9. Simbol Komponen</div>
+  <p>Perhatikan simbol berikut.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 500 120" role="img"
+         aria-labelledby="dioda-title dioda-desc"
+         xmlns="http://www.w3.org/2000/svg">
+      <title id="dioda-title">Simbol dioda</title>
+      <desc id="dioda-desc">Simbol dioda berupa segitiga yang mengarah ke garis vertikal.</desc>
+      <line x1="50" y1="60" x2="190" y2="60" stroke="black" stroke-width="3"/>
+      <polygon points="190,35 190,85 260,60" fill="none" stroke="black" stroke-width="3"/>
+      <line x1="260" y1="30" x2="260" y2="90" stroke="black" stroke-width="4"/>
+      <line x1="260" y1="60" x2="450" y2="60" stroke="black" stroke-width="3"/>
+    </svg>
+    <figcaption>Gambar 2. Simbol komponen</figcaption>
+  </figure>
+
+  <p>Simbol tersebut menunjukkan komponen …</p>
+  <div class="opsi">
+    <div>A. Resistor</div>
+    <div>B. Kapasitor</div>
+    <div>C. Dioda</div>
+    <div>D. Sakelar</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">10. Simbol Komponen</div>
+  <p>Simbol garis zig-zag pada gambar rangkaian menunjukkan …</p>
+  <div class="opsi">
+    <div>A. Resistor</div>
+    <div>B. Dioda</div>
+    <div>C. Transistor</div>
+    <div>D. Transformator</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">11. Rangkaian Seri</div>
+  <p>Perhatikan rangkaian berikut.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 700 150" role="img"
+         aria-labelledby="seri-title seri-desc"
+         xmlns="http://www.w3.org/2000/svg">
+      <title id="seri-title">Rangkaian seri dua resistor</title>
+      <desc id="seri-desc">Sumber 12 volt terhubung seri dengan resistor 2 ohm dan 4 ohm.</desc>
+      <line x1="40" y1="75" x2="90" y2="75" stroke="black" stroke-width="3"/>
+      <line x1="90" y1="48" x2="90" y2="102" stroke="black" stroke-width="4"/>
+      <line x1="103" y1="57" x2="103" y2="93" stroke="black" stroke-width="3"/>
+      <text x="48" y="35" font-size="18">12 V</text>
+
+      <line x1="103" y1="75" x2="160" y2="75" stroke="black" stroke-width="3"/>
+      <polyline points="160,75 175,55 195,95 215,55 235,95 255,55 275,95 290,75"
+                fill="none" stroke="black" stroke-width="3"/>
+      <text x="180" y="35" font-size="17">R1 = 2 Ω</text>
+
+      <line x1="290" y1="75" x2="360" y2="75" stroke="black" stroke-width="3"/>
+      <polyline points="360,75 375,55 395,95 415,55 435,95 455,55 475,95 490,75"
+                fill="none" stroke="black" stroke-width="3"/>
+      <text x="380" y="35" font-size="17">R2 = 4 Ω</text>
+
+      <line x1="490" y1="75" x2="640" y2="75" stroke="black" stroke-width="3"/>
+      <line x1="640" y1="75" x2="640" y2="120" stroke="black" stroke-width="3"/>
+      <line x1="640" y1="120" x2="40" y2="120" stroke="black" stroke-width="3"/>
+      <line x1="40" y1="120" x2="40" y2="75" stroke="black" stroke-width="3"/>
+    </svg>
+    <figcaption>Gambar 3. Rangkaian seri</figcaption>
+  </figure>
+
+  <p>Arus total pada rangkaian adalah …</p>
+  <div class="opsi">
+    <div>A. 1 A</div>
+    <div>B. 2 A</div>
+    <div>C. 3 A</div>
+    <div>D. 6 A</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">12. Rangkaian Paralel</div>
+  <p>Resistor 6 Ω dan 3 Ω dipasang paralel pada sumber 12 V. Hambatan ekuivalennya adalah …</p>
+  <div class="opsi">
+    <div>A. 1 Ω</div>
+    <div>B. 2 Ω</div>
+    <div>C. 3 Ω</div>
+    <div>D. 9 Ω</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">13. Hukum Ohm</div>
+  <p>Sebuah resistor 10 Ω dialiri arus 0,5 A. Tegangan pada resistor tersebut adalah …</p>
+  <div class="opsi">
+    <div>A. 0,05 V</div>
+    <div>B. 5 V</div>
+    <div>C. 10 V</div>
+    <div>D. 20 V</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">14. Daya Listrik</div>
+  <p>Sebuah beban bekerja pada tegangan 12 V dan arus 2 A. Daya beban tersebut adalah …</p>
+  <div class="opsi">
+    <div>A. 6 W</div>
+    <div>B. 12 W</div>
+    <div>C. 24 W</div>
+    <div>D. 36 W</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">15. Kode Warna Resistor</div>
+  <p>Resistor memiliki kode warna cokelat–hitam–merah–emas. Nilainya adalah …</p>
+  <div class="opsi">
+    <div>A. 10 Ω ±5%</div>
+    <div>B. 100 Ω ±5%</div>
+    <div>C. 1 kΩ ±5%</div>
+    <div>D. 10 kΩ ±10%</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">16. Rangkaian Campuran</div>
+  <p>Resistor 6 Ω dan 3 Ω dipasang paralel. Gabungan tersebut diseri dengan resistor 2 Ω. Hambatan totalnya adalah …</p>
+  <div class="opsi">
+    <div>A. 2 Ω</div>
+    <div>B. 4 Ω</div>
+    <div>C. 8 Ω</div>
+    <div>D. 11 Ω</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">17. Kapasitor</div>
+  <p>Fungsi utama kapasitor pada rangkaian catu daya DC adalah …</p>
+  <div class="opsi">
+    <div>A. Menyearahkan tegangan AC</div>
+    <div>B. Menyimpan muatan dan meratakan riak tegangan</div>
+    <div>C. Memperbesar hambatan kawat</div>
+    <div>D. Mengubah energi listrik menjadi cahaya</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">18. Dioda</div>
+  <p>Dioda silikon idealnya menghantarkan arus ketika …</p>
+  <div class="opsi">
+    <div>A. Diberi bias maju</div>
+    <div>B. Diberi bias mundur</div>
+    <div>C. Tidak diberi tegangan</div>
+    <div>D. Kedua terminalnya dihubungkan ke ground</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">19. LED</div>
+  <p>Agar LED tidak rusak ketika dihubungkan ke sumber DC, komponen yang umumnya dipasang seri adalah …</p>
+  <div class="opsi">
+    <div>A. Kapasitor</div>
+    <div>B. Resistor pembatas arus</div>
+    <div>C. Transformator</div>
+    <div>D. Sekering termal</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">20. Transistor</div>
+  <p>Pada rangkaian sakelar elektronik, transistor BJT dapat digunakan untuk …</p>
+  <div class="opsi">
+    <div>A. Mengubah AC menjadi DC saja</div>
+    <div>B. Mengendalikan arus beban menggunakan arus basis</div>
+    <div>C. Mengukur frekuensi secara langsung</div>
+    <div>D. Menyimpan data permanen</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">21. Multimeter — Tegangan</div>
+  <p>Untuk mengukur tegangan DC pada baterai, multimeter dipasang …</p>
+  <div class="opsi">
+    <div>A. Seri dengan baterai</div>
+    <div>B. Paralel dengan baterai</div>
+    <div>C. Tanpa kabel pengukuran</div>
+    <div>D. Pada terminal arus tinggi secara seri</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">22. Multimeter — Arus</div>
+  <p>Ketika mengukur arus pada suatu cabang rangkaian, multimeter harus dipasang …</p>
+  <div class="opsi">
+    <div>A. Paralel dengan beban</div>
+    <div>B. Seri dengan cabang yang diukur</div>
+    <div>C. Paralel dengan sumber tegangan</div>
+    <div>D. Pada posisi pengukuran resistansi</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">23. Pengukuran Resistansi</div>
+  <p>Sebelum mengukur nilai resistor menggunakan multimeter, tindakan yang tepat adalah …</p>
+  <div class="opsi">
+    <div>A. Rangkaian harus tetap diberi tegangan</div>
+    <div>B. Memastikan rangkaian tidak bertegangan</div>
+    <div>C. Menghubungkan probe secara paralel dengan baterai</div>
+    <div>D. Memilih skala arus AC</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">24. Multimeter Analog</div>
+  <p>Jarum multimeter menunjuk angka 30 pada skala 0–50. Selektor berada pada rentang 10 V. Nilai tegangan yang terbaca adalah …</p>
+  <div class="opsi">
+    <div>A. 3 V</div>
+    <div>B. 6 V</div>
+    <div>C. 10 V</div>
+    <div>D. 30 V</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">25. Osiloskop</div>
+  <p>Satu periode gelombang menempati 4 divisi horizontal. Jika time/div adalah 0,5 ms/div, frekuensinya adalah …</p>
+  <div class="opsi">
+    <div>A. 50 Hz</div>
+    <div>B. 250 Hz</div>
+    <div>C. 500 Hz</div>
+    <div>D. 2 kHz</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">26. Osiloskop</div>
+  <p>Tampilan gelombang pada osiloskop bergerak terus ke arah horizontal. Pengaturan yang paling perlu diperiksa adalah …</p>
+  <div class="opsi">
+    <div>A. Trigger dan level trigger</div>
+    <div>B. Warna layar</div>
+    <div>C. Ground probe saja</div>
+    <div>D. Intensitas cahaya ruangan</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">27. Pengukuran Aman</div>
+  <p>Untuk mengukur tegangan pada stopkontak menggunakan multimeter, selektor harus dipilih pada …</p>
+  <div class="opsi">
+    <div>A. Ohm dengan probe ditempelkan ke stopkontak</div>
+    <div>B. Tegangan AC dengan rentang yang sesuai</div>
+    <div>C. Arus DC pada terminal mA</div>
+    <div>D. Uji kontinuitas</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">28. Transformator</div>
+  <p>Fungsi transformator pada catu daya adalah …</p>
+  <div class="opsi">
+    <div>A. Mengubah nilai tegangan AC melalui induksi elektromagnetik</div>
+    <div>B. Mengubah DC menjadi cahaya</div>
+    <div>C. Mengukur hambatan komponen</div>
+    <div>D. Menyimpan program mikrokontroler</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">29. Motor Listrik</div>
+  <p>Motor listrik mengubah energi …</p>
+  <div class="opsi">
+    <div>A. Mekanik menjadi listrik</div>
+    <div>B. Listrik menjadi mekanik</div>
+    <div>C. Panas menjadi cahaya</div>
+    <div>D. Kimia menjadi suara</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">30. Relay</div>
+  <p>Relay digunakan dalam rangkaian kendali karena …</p>
+  <div class="opsi">
+    <div>A. Dapat menghubungkan beban menggunakan kendali listrik dan memberi isolasi antara rangkaian kendali dan beban</div>
+    <div>B. Hanya dapat bekerja tanpa sumber listrik</div>
+    <div>C. Berfungsi sebagai penguat audio</div>
+    <div>D. Selalu mengubah AC menjadi DC</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">31. Sistem Bilangan</div>
+  <p>Bilangan biner \(1011_2\) jika dikonversi ke desimal menjadi …</p>
+  <div class="opsi">
+    <div>A. 9</div>
+    <div>B. 10</div>
+    <div>C. 11</div>
+    <div>D. 12</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">32. Konversi Bilangan</div>
+  <p>Bilangan desimal 13 jika dinyatakan dalam biner adalah …</p>
+  <div class="opsi">
+    <div>A. \(1010_2\)</div>
+    <div>B. \(1011_2\)</div>
+    <div>C. \(1100_2\)</div>
+    <div>D. \(1101_2\)</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">33. Gerbang AND</div>
+  <p>Gerbang AND memiliki keluaran 1 apabila …</p>
+  <div class="opsi">
+    <div>A. Semua masukan bernilai 0</div>
+    <div>B. Minimal satu masukan bernilai 1</div>
+    <div>C. Semua masukan bernilai 1</div>
+    <div>D. Masukannya berbeda</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">34. Gerbang OR</div>
+  <p>Perhatikan tabel berikut.</p>
+
+  <table border="1" cellpadding="8" cellspacing="0">
+    <tr><th>A</th><th>B</th><th>Y</th></tr>
+    <tr><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td>0</td><td>1</td><td>1</td></tr>
+    <tr><td>1</td><td>0</td><td>1</td></tr>
+    <tr><td>1</td><td>1</td><td>1</td></tr>
+  </table>
+
+  <p>Gerbang logika yang sesuai adalah …</p>
+  <div class="opsi">
+    <div>A. AND</div>
+    <div>B. OR</div>
+    <div>C. NOT</div>
+    <div>D. NAND</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">35. Gerbang NOT</div>
+  <p>Jika \(A=0\), keluaran gerbang NOT adalah …</p>
+  <div class="opsi">
+    <div>A. 0</div>
+    <div>B. 1</div>
+    <div>C. Tidak tentu</div>
+    <div>D. Sama dengan impedansi</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">36. Persamaan Boolean</div>
+  <p>Persamaan logika untuk gerbang AND yang masukannya A dan B adalah …</p>
+  <div class="opsi">
+    <div>A. \(Y=A+B\)</div>
+    <div>B. \(Y=A \cdot B\)</div>
+    <div>C. \(Y=\overline{A+B}\)</div>
+    <div>D. \(Y=\overline{A \cdot B}\)</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">37. Penyederhanaan Boolean</div>
+  <p>Bentuk sederhana dari persamaan berikut adalah:</p>
+  <p>\[
+    Y=A+A\cdot B
+  \]</p>
+  <div class="opsi">
+    <div>A. \(Y=A\)</div>
+    <div>B. \(Y=B\)</div>
+    <div>C. \(Y=A+B\)</div>
+    <div>D. \(Y=A\cdot B\)</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">38. Analisis Rangkaian Logika</div>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 600 180" role="img"
+         aria-labelledby="and-title and-desc"
+         xmlns="http://www.w3.org/2000/svg">
+      <title id="and-title">Gerbang AND dua masukan</title>
+      <desc id="and-desc">Masukan A dan B masuk ke gerbang AND dan menghasilkan keluaran Y.</desc>
+      <line x1="45" y1="60" x2="220" y2="60" stroke="black" stroke-width="3"/>
+      <line x1="45" y1="120" x2="220" y2="120" stroke="black" stroke-width="3"/>
+      <text x="20" y="66" font-size="20">A</text>
+      <text x="20" y="126" font-size="20">B</text>
+
+      <path d="M220 35 L285 35
+               Q350 35 350 90
+               Q350 145 285 145
+               L220 145 Z"
+            fill="#eaf3f8" stroke="black" stroke-width="3"/>
+      <text x="250" y="98" font-size="22">AND</text>
+
+      <line x1="350" y1="90" x2="535" y2="90" stroke="black" stroke-width="3"/>
+      <text x="545" y="97" font-size="20">Y</text>
+    </svg>
+    <figcaption>Gambar 4. Gerbang AND</figcaption>
+  </figure>
+
+  <p>Jika \(A=1\) dan \(B=0\), nilai \(Y\) adalah …</p>
+  <div class="opsi">
+    <div>A. 0</div>
+    <div>B. 1</div>
+    <div>C. 2</div>
+    <div>D. Tidak dapat ditentukan</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">39. PGK — Sistem Alarm</div>
+  <p>Sebuah sistem alarm berbunyi jika sensor pintu A atau sensor jendela B aktif. Pilih semua pernyataan yang benar.</p>
+  <div class="opsi">
+    <div>A. Sistem menggunakan gerbang OR</div>
+    <div>B. Jika A = 0 dan B = 0, keluaran bernilai 0</div>
+    <div>C. Jika A = 1 dan B = 0, keluaran bernilai 0</div>
+    <div>D. Jika A = 1 atau B = 1, keluaran bernilai 1</div>
+    <div>E. Sistem harus menggunakan gerbang AND</div>
+  </div>
+</section>
+
+<section class="soal">
+  <div class="nomor">40. PGK — K3 dan Pengukuran</div>
+  <p>Pilih semua tindakan yang benar ketika mengukur tegangan DC pada rangkaian elektronika.</p>
+  <div class="opsi">
+    <div>A. Memilih mode DC voltage pada multimeter</div>
+    <div>B. Menghubungkan probe secara paralel pada titik yang diukur</div>
+    <div>C. Menghubungkan probe secara seri dengan sumber</div>
+    <div>D. Memeriksa rentang ukur sebelum pengukuran</div>
+    <div>E. Menempatkan multimeter pada mode ohm saat rangkaian masih bertegangan</div>
+  </div>
+</section>
+
+<section id="kunci-jawaban">
+<h2>B. Kunci Jawaban dan Pembahasan</h2>
+
+<div class="jawaban">
+  <p><span class="benar">1. B</span></p>
+  <p>Waste control mencakup pengurangan, pemilahan, pengelolaan, dan penanganan limbah agar tidak mencemari lingkungan.</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">2. B</span></p>
+  <p>Sumber listrik harus dimatikan dan kondisi bebas tegangan dipastikan sebelum perbaikan.</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">3. B</span></p>
+  <p>Lingkaran merah dengan tanda coret menunjukkan larangan. Gambar tangan berarti dilarang menyentuh.</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">4. C</span></p>
+  <p>Limbah B3 harus dipilah, diberi label, disimpan dengan aman, dan dikelola oleh pihak yang berwenang.</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">5. B</span></p>
+  <p>Rapi berarti alat dan bahan ditempatkan secara teratur pada lokasi yang telah ditentukan.</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">6. A</span></p>
+  <p>Tang potong digunakan untuk memotong kaki komponen atau kabel kecil.</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">7. B</span></p>
+  <p>Ujung solder dan titik solder yang bersih menghasilkan sambungan yang baik serta mengurangi risiko solder dingin.</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">8. B</span></p>
+  <p>Urutan umum PCB adalah membuat desain, memindahkan pola, melarutkan tembaga, membersihkan, lalu mengebor.</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">9. C</span></p>
+  <p>Simbol pada gambar menunjukkan dioda.</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">10. A</span></p>
+  <p>Simbol garis zig-zag merupakan simbol resistor.</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">11. B</span></p>
+  <p>Hambatan total seri \(R_T=2+4=6\ \Omega\). Jadi \(I=V/R=12/6=2\ \text{A}\).</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">12. B</span></p>
+  <p>\(R_T=(6\times3)/(6+3)=18/9=2\ \Omega\).</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">13. B</span></p>
+  <p>Hukum Ohm: \(V=IR=0{,}5\times10=5\ \text{V}\).</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">14. C</span></p>
+  <p>Daya listrik \(P=VI=12\times2=24\ \text{W}\).</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">15. C</span></p>
+  <p>Cokelat = 1, hitam = 0, merah = pengali 100. Nilainya \(10\times100=1.000\ \Omega=1\ \text{k}\Omega\), dengan toleransi emas ±5%.</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">16. B</span></p>
+  <p>Gabungan 6 Ω dan 3 Ω paralel adalah 2 Ω. Kemudian diseri dengan 2 Ω, sehingga totalnya 4 Ω.</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">17. B</span></p>
+  <p>Kapasitor menyimpan muatan dan membantu mengurangi riak tegangan pada catu daya.</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">18. A</span></p>
+  <p>Dioda menghantarkan arus terutama ketika diberi bias maju.</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">19. B</span></p>
+  <p>Resistor seri membatasi arus LED agar tidak melebihi batas maksimum.</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">20. B</span></p>
+  <p>Pada konfigurasi sakelar, arus basis mengendalikan arus kolektor-emitor.</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">21. B</span></p>
+  <p>Tegangan diukur antara dua titik, sehingga probe multimeter dipasang paralel.</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">22. B</span></p>
+  <p>Arus harus melewati multimeter, sehingga alat dipasang seri dengan cabang rangkaian.</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">23. B</span></p>
+  <p>Pengukuran resistansi dilakukan pada rangkaian tanpa tegangan agar alat dan pengguna aman.</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">24. B</span></p>
+  <p>Pembacaan \(=(30/50)\times10=6\ \text{V}\).</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">25. C</span></p>
+  <p>Periode \(T=4\times0{,}5\text{ ms}=2\text{ ms}\). Frekuensi \(f=1/T=500\text{ Hz}\).</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">26. A</span></p>
+  <p>Trigger atau level trigger yang tidak tepat membuat gelombang tidak terkunci dan tampak bergerak.</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">27. B</span></p>
+  <p>Stopkontak merupakan sumber AC, sehingga digunakan mode tegangan AC dengan rentang yang sesuai.</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">28. A</span></p>
+  <p>Transformator mengubah nilai tegangan AC melalui induksi elektromagnetik.</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">29. B</span></p>
+  <p>Motor mengubah energi listrik menjadi energi mekanik berupa gerak atau putaran.</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">30. A</span></p>
+  <p>Relay memungkinkan rangkaian kendali berdaya kecil mengendalikan beban lebih besar dan memberi isolasi listrik.</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">31. C</span></p>
+  <p>\(1011_2=1(8)+0(4)+1(2)+1(1)=11\).</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">32. D</span></p>
+  <p>\(13=8+4+1\), sehingga bentuk binernya adalah \(1101_2\).</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">33. C</span></p>
+  <p>Gerbang AND menghasilkan 1 hanya jika semua masukannya bernilai 1.</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">34. B</span></p>
+  <p>Tabel tersebut menunjukkan karakteristik gerbang OR: keluaran 1 jika minimal satu masukan bernilai 1.</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">35. B</span></p>
+  <p>Gerbang NOT membalik logika, sehingga \(\overline{0}=1\).</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">36. B</span></p>
+  <p>Operasi AND dinyatakan dengan perkalian Boolean \(Y=A\cdot B\).</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">37. A</span></p>
+  <p>Berdasarkan hukum absorpsi, \(A+A\cdot B=A\).</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">38. A</span></p>
+  <p>Untuk gerbang AND, \(Y=A\cdot B=1\cdot0=0\).</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">39. A, B, D</span></p>
+  <p>Sistem menggunakan OR. Jika kedua sensor tidak aktif, keluaran 0. Jika minimal satu sensor aktif, keluaran 1.</p>
+</div>
+
+<div class="jawaban">
+  <p><span class="benar">40. A, B, D</span></p>
+  <p>Tegangan DC diukur dengan mode DC, probe dipasang paralel, dan rentang ukur harus diperiksa. Mode ohm tidak boleh digunakan pada rangkaian yang masih bertegangan.</p>
+</div>
+</section>
+<footer class="footer">
+  Simulasi TKA Teknik Elektronika SMK/MAK
+</footer>
+
+</main>
+</body>
+</html>
